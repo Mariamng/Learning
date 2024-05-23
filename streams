@@ -3,3 +3,5 @@ Imagine you have a big box of toys, and you want to organize them in a certain w
 In Java, a "stream" is like a toy sorter machine for data. It's a special kind of tool that takes in data at one end, performs a series of operations on it, and gives you the processed data at the other end. 
 
 So, in short, a stream is a way to process data in a declarative and efficient way, without having to write a lot of manual looping code. It's a powerful tool that can make your Java code more concise and expressive!
+
+https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html
