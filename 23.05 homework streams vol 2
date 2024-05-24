@@ -1,1 +1,36 @@
+import java.util.ArrayList;
+import java.util.Random;
 
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<Integer> list = new ArrayList<Integer>();
+
+        Random random = new Random();
+
+        while(list.size() < 25){
+            int number = random.nextInt(100) + 1;
+            if (number % 2 == 0){
+                list.add(number);
+            }
+        }
+
+        printNumArrayList(list);
+        updatedArrayList(list);
+    }
+
+    public static void printNumArrayList(ArrayList<Integer> numbers){
+        System.out.println("All the droids in the list are: ");
+        for (Integer num: numbers){
+            System.out.println(num);
+        }
+    }
+
+    public static void updatedArrayList(ArrayList<Integer> numbers){
+        System.out.println("And the droids you are looking for are: ");
+        numbers
+                .stream()
+                .skip(5)
+                .limit(3)
+                .forEach(x -> System.out.println(x));
+    }
+}
