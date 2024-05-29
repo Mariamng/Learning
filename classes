@@ -1,0 +1,13 @@
+In Java, organizing code into classes is crucial for writing clean, maintainable, and scalable code. Here are the main rules for organizing code into classes in Java:
+
+1. Single Responsibility Principle (SRP)
+Each class should have a single responsibility and should not be responsible for multiple, unrelated tasks.
+
+2. Encapsulation
+Classes should encapsulate their data and behavior, hiding their internal implementation details from the outside world.
+
+3. Inheritance
+Classes can inherit behavior and properties from parent classes, allowing for code reuse and a more hierarchical organization of code.
+
+4. Polymorphism
+Classes can be designed to take on multiple forms, allowing for more flexibility and generic code.
