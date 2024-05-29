@@ -1,0 +1,47 @@
+// Animal class (parent class)
+public class Animal {
+    private String name;
+
+    public Animal(String name) {
+        this.name = name;
+    }
+
+    public void sound() {
+        System.out.println("The animal makes a sound.");
+    }
+}
+
+// Dog class (subclass of Animal)
+public class Dog extends Animal {
+    public Dog(String name) {
+        super(name);
+    }
+
+    @Override
+    public void sound() {
+        System.out.println("The dog barks.");
+    }
+}
+
+// Cat class (subclass of Animal)
+public class Cat extends Animal {
+    public Cat(String name) {
+        super(name);
+    }
+
+    @Override
+    public void sound() {
+        System.out.println("The cat meows.");
+    }
+}
+
+// Test class
+public class Test {
+    public static void main(String[] args) {
+        Animal dog = new Dog("Fido");
+        Animal cat = new Cat("Whiskers");
+
+        dog.sound(); // Output: The dog barks.
+        cat.sound(); // Output: The cat meows.
+    }
+}
