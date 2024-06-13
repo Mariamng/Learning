@@ -212,3 +212,105 @@ public static void addingItemsToShop(){
     
     }  
 }```
+// new class - shop.java
+```import java.util.ArrayList;
+  
+public class Shop{
+
+  
+  private ArrayList<Item> items = new ArrayList<Item>();
+  private ArrayList<Item> cart = new ArrayList<Item>();
+
+  public ArrayList<Item> getItems(){
+    return items;
+  }
+
+  public ArrayList<Item> getCart(){
+    return cart;
+  }
+
+
+  //SHOPMANAGER FUNCTIONALITY
+  public void addItem(Item item){
+    items.add(item);
+  }
+
+  public void removeItem(int id){
+    for(var item : items){
+      if(item.getId() == id){
+        items.remove(item);
+        return;
+      }
+    }
+  }
+
+  public void updateItem(int id, String name, int cost){
+    //find the item with the id and update the item with name and cost
+    for(var item : items){
+      if(item.getId() == id){
+        item.setName(name);
+        item.setCost(cost);
+        return;
+      }
+    }
+  }
+
+  //SHOP FUNCTIONALITY
+  public void addItemToCart(Item item){
+    //items list, it would contain the amount of the available items
+    //before we add item to the cart, er would check if it is availabe
+    cart.add(item);
+  }
+
+  public void removeItemFromCart(int id){
+    for(var item : cart){
+      if(item.getId() == id){
+        cart.remove(item);
+        return;
+      }
+    }
+  }
+
+  public int checkOut(){ //get total cost
+    int sum = 0;
+    for(var item: cart){
+      sum += item.getCost();
+    }
+    return sum;
+  }
+}
+// new class - item.java
+public class Item{
+  private int id;
+  private String name;
+  private int cost;
+
+  public Item(int id){
+    this.id = id;
+  }
+
+  //Only get id because we do not want it to be changed once it is given
+  public int getId(){
+    return id;
+  }
+  
+  public void setName(String name){
+    //do some logic here
+    this.name = name;
+    //do some logic here
+  }
+
+  public String getName(){
+    return name;
+  }
+
+  public void setCost(int cost){
+    //Check wheter or not the user is a cashier, and if it is, then allow to change the price
+    this.cost = cost;
+  }
+
+  public int getCost(){
+    return cost;
+  }
+}
+
