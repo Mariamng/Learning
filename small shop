@@ -1,0 +1,214 @@
+```import java.util.Scanner;
+
+public class Main {
+public static Shop shop = new Shop();  
+  
+  public static void main(String[] args) {
+  Scanner s = new Scanner(System.in);
+    
+  addingItemsToShop();  
+  application(s);
+  s.close();  
+  }
+
+public static void showItemsForSale(){
+  var itemsForSale = shop.getItems();
+  for(Item item : itemsForSale){
+    System.out.println("Item id: " + item.getId());
+    System.out.println("Item name: " + item.getName());
+    System.out.println("Item price: " + item.getCost());
+    System.out.println("");
+  }
+}
+
+public static void showItemsInCart(){
+  var itemsInCart = shop.getCart();
+  for(Item item : itemsInCart){
+    System.out.println("Item id: " + item.getId());
+    System.out.println("Item name: " + item.getName());
+    System.out.println("Item price: " + item.getCost());
+    System.out.println("");
+  }
+} 
+
+public static int hasNextInt(Scanner s, int min, int max){
+  while(true){
+    if(s.hasNextInt()){
+      int userInput = s.nextInt();
+      s.nextLine();
+      if(userInput <= max && userInput >= min){
+        return userInput;
+      }else{
+          System.out.println("Please enter a number between: " + min + "-" + max);
+      }
+    }else{
+      System.out.println("Please enter a number between: " + min + "-" + max);
+      s.nextLine();
+    }
+  }
+}  
+  
+public static int customerOrAdmin(Scanner s){
+    System.out.println("Please select if you would like to continue as admin (press number 1) or");
+  System.out.println(" customer (press number 2).");
+    return hasNextInt(s, 1, 2);
+} 
+  
+public static void displayMenuForAdmin(){
+  System.out.println("Please select what would you like to do by pressing the number of the action: ");
+  System.out.println("1. Add item");
+  System.out.println("2. Remove item");
+  System.out.println("3. Update item");
+  System.out.println("4. Show all the items in the shop");
+  System.out.println("5. Exit");
+}
+
+
+  
+public static void adminPage(Scanner s){
+  boolean onOff = true;
+  while(onOff){
+    displayMenuForAdmin();
+    int userInput = hasNextInt(s, 1, 5);
+
+    switch(userInput){
+      case 1: 
+        System.out.println("Please enter id for new item: ");
+        int id = s.nextInt();
+        s.nextLine();
+        Item item = new Item(id);
+        shop.addItem(item);
+        System.out.println("Please enter name for new item: ");
+        String name = s.nextLine();
+        System.out.println("Please enter a price for new item: ");
+        int price = s.nextInt();
+        s.nextLine();
+        shop.updateItem(id, name, price);
+        break;
+      case 2: 
+        System.out.println("Please enter an id for the product you would like to remove: ");
+        showItemsForSale();
+        int removeId = s.nextInt();
+        shop.removeItem(removeId);
+        break;
+      case 3:
+        System.out.println("Please enter an id for the product you would like to change: ");
+        showItemsForSale();
+        int updateId = s.nextInt();
+        s.nextLine();
+        System.out.println("Please enter new name for the product: ");
+        String newName = s.nextLine();
+        System.out.println("Please enter new price for the product: ");
+        int newPrice = s.nextInt();
+        s.nextLine();
+        shop.updateItem(updateId, newName, newPrice);
+        break;
+      case 4:
+        System.out.println("Here are all the items that are currently on store: ");
+        showItemsForSale();
+        break;
+      case 5:
+        System.out.println("Closing Java shop.");
+        onOff = false;
+        break;
+     }
+  }
+}  
+
+public static void displayMenuForCustomer(){
+  System.out.println("Please select what would you like to do by pressing the number of the action: ");
+  System.out.println("1. Show items for sale");
+  System.out.println("2. Add item to the cart");
+  System.out.println("3. Remove item from the cart");
+  System.out.println("4. Checkout");
+  System.out.println("5. Exit");
+}  
+  
+  public static void customerPage(Scanner s){
+    boolean onOff = true;
+    while(onOff){
+      displayMenuForCustomer();
+      int userInput = hasNextInt(s, 1, 5);
+
+      switch(userInput){
+        case 1: 
+          System.out.println("Here are all items that are currently on sale: ");
+          showItemsForSale();
+          break;
+        case 2: 
+          System.out.println("Please enter the id of the item you would like to add to the cart: ");
+          System.out.println("All items for sale are shown now: ");
+          showItemsForSale();
+          int idToCart = s.nextInt();
+          var itemsList = shop.getItems();
+          for(Item item : itemsList){
+            if(idToCart == item.getId()){
+              Item itemToCart = item;
+              shop.addItemToCart(itemToCart);
+            }
+          }
+          break;
+        case 3:
+          System.out.println("Here all all items that are currenly in your cart: ");
+          showItemsInCart();
+          System.out.println("Please enter an id of the product you would like to remove from the cart: ");
+          int removeId = s.nextInt();
+          s.nextLine();
+          shop.removeItemFromCart(removeId);
+          break;
+        case 4:
+          System.out.println("Here are all items in your cart: ");
+          showItemsInCart();
+          System.out.println("Here you can see check out: ");
+          System.out.println(shop.checkOut());
+          break;
+        case 5:
+          System.out.println("Closing Java shop.");
+          onOff = false;
+          break;
+       }
+    }
+  } 
+  
+
+public static void application(Scanner s){
+  System.out.println("Welcome to the Java shop!");
+  int customerOrAdmin = customerOrAdmin(s);
+  if(customerOrAdmin == 1){
+    adminPage(s);
+  }else{
+    customerPage(s);
+  }
+  
+}
+
+public static void addingItemsToShop(){
+  Item item1 = new Item(1);
+  Item item2 = new Item(2);
+  Item item3 = new Item(3);
+  Item item4 = new Item(4);
+  Item item5 = new Item(5);
+  Item item6 = new Item(6);
+
+  item1.setName("Socks");
+  item1.setCost(2);
+  item2.setName("Shorts");
+  item2.setCost(10);
+  item3.setName("T-Shirt");
+  item3.setCost(15);
+  item4.setName("Hat");
+  item4.setCost(10);
+  item5.setName("Heels");
+  item5.setCost(15);
+  item6.setName("Jeans");
+  item6.setCost(20);
+
+  shop.addItem(item1);
+  shop.addItem(item2);
+  shop.addItem(item3);
+  shop.addItem(item4);
+  shop.addItem(item5);
+  shop.addItem(item6);
+    
+    }  
+}```
